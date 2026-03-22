@@ -1,6 +1,7 @@
 # exotic-crtp
 
-# The article : https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd
+# The article : 
+https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd
 
 ## The pattern
 ```cpp
