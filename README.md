@@ -1,10 +1,24 @@
 # exotic-crtp
 
-**Article :** [Rethinking Static Polymorphism with C++23](https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd)
+A modern CRTP pattern for C++23 static polymorphism.
 
-## The pattern
+**Article:** Rethinking Static Polymorphism with C++23  
+https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd
 
+## Reference Implementation
 ```cpp
+// Copyright (c) May 2026 Félix-Olivier Dumas. All rights reserved.
+// Licensed under the terms described in the LICENSE file
+
+// Reference example of the pattern
+// See: https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd
+
+#pragma once
+
+#include <iostream>
+#include <type_traits>
+#include <utility>
+
 namespace exotic {
 
     template<typename... From>
@@ -20,13 +34,21 @@ namespace exotic {
 
 struct Base {
     void interface(this auto&& self) {
-        return as_crtp(self).implementation();
+        return exotic::as_crtp(self).implementation();
     }
 };
 
 struct Derived : Base {
-    void implementation(this crtp_access<Derived> self) {
+    void implementation(this exotic::crtp_access<Derived> self) {
         std::cout << "Derived implementation" << std::endl;
     }
 };
+
+int main() {
+    Derived d;
+  
+    d.interface(); // perfectly works
+  
+    //d.implementation(); -> doesn't work, Derived only exposes .interface()
+}
 ```
