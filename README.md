@@ -34,7 +34,7 @@ namespace exotic {
 
 struct Base {
     void interface(this auto&& self) {
-        return exotic::as_crtp(self).implementation();
+        exotic::as_crtp(self).implementation();
     }
 };
 
