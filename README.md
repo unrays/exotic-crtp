@@ -21,8 +21,8 @@ https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism
 
 namespace exotic {
 
-    template<typename... From>
-    struct crtp_access : From... {};
+    template<typename From>
+    struct crtp_access : From {};
 
     template<typename T>
     constexpr decltype(auto) as_crtp(T&& obj) noexcept {
