@@ -4,6 +4,7 @@ A modern CRTP pattern for C++23 static polymorphism.
 
 **Article:** Rethinking Static Polymorphism with C++23  
 https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd
+(article is not updated to the latest big modifications, some parts needs to be rewritten very soon)
 
 ## Reference Implementation
 ```cpp
