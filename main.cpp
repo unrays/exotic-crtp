@@ -1,7 +1,19 @@
+// Copyright (c) May 2026 Félix-Olivier Dumas. All rights reserved.
+// Licensed under the terms described in the LICENSE file
+
+// Reference example of the pattern
+// See: https://medium.com/@felixolivierdumas/exotic-crtp-rethinking-static-polymorphism-with-c-23-89f9e75e8ffd
+
+#pragma once
+
+#include <iostream>
+#include <type_traits>
+#include <utility>
+
 namespace exotic {
 
-    template<typename... From>
-    struct crtp_access : From... {};
+    template<typename From>
+    struct crtp_access : From {};
 
     template<typename T>
     constexpr decltype(auto) as_crtp(T&& obj) noexcept {
@@ -13,12 +25,20 @@ namespace exotic {
 
 struct Base {
     void interface(this auto&& self) {
-        return as_crtp(self).implementation();
+        exotic::as_crtp(self).implementation();
     }
 };
 
 struct Derived : Base {
-    void implementation(this crtp_access<Derived> self) {
+    void implementation(this exotic::crtp_access<Derived> self) {
         std::cout << "Derived implementation" << std::endl;
     }
 };
+
+int main() {
+    Derived d;
+  
+    d.interface(); // perfectly works
+  
+    //d.implementation(); -> doesn't work, Derived only exposes .interface()
+}
